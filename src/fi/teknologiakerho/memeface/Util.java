@@ -16,5 +16,18 @@ public class Util {
 		
 		return ret.toString();
 	}
+	
+	public static void writeInt(byte[] dest, int off, int src) {
+		dest[off] = (byte) (src & 0xff);
+		dest[off+1] = (byte) ((src >> 8) & 0xff);
+	}
+	
+	public static void writeLong(byte[] dest, int off, long src) {
+		dest[off] = (byte) (src & 0xff);
+		dest[off+1] = (byte) ((src >> 8) & 0xff);
+		dest[off+2] = (byte) ((src >> 16) & 0xff);
+		dest[off+3] = (byte) ((src >> 24) & 0xff);
+		System.out.println("writeLong " + src);
+	}
 
 }

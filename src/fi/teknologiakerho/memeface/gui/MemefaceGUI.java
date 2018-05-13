@@ -43,12 +43,16 @@ public class MemefaceGUI extends JComponent {
 	public void openHcode(HCode hcode) {
 		this.hcode = hcode;
 		hcodeViewer.setHCode(hcode);
+		log("Loaded hcode");
+		log(hcode.commands.size() + " commands.");
 	}
 	
 	public void openHcode(File file) {
 		HCode h = HcodeConverter.parseHCode(file);
-		if(h != null)
+		if(h != null) {
+			log("Opening hcode: " + file.getAbsolutePath());
 			openHcode(h);
+		}
 	}
 	
 	public void startPrint() {
@@ -156,7 +160,7 @@ public class MemefaceGUI extends JComponent {
 	}
 	
 	public void sendCommand(Command command) {
-		byte[] buf = new byte[8];
+		byte[] buf = new byte[16];
 		int len = HcodeConverter.encodeCommand(buf, 0, command);
 		try {
 			conn.send(buf, 0, len);

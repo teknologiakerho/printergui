@@ -15,7 +15,7 @@ public class NXTConnection implements Closeable {
 	private static final int COMM_IOMAP_OFFSET = 1289;
 	private static final int FW_NAME_OFFSET = 0;
 	private static final int POSITION_OFFSET = 20;
-	private static final int IP_OFFSET = 28;
+	private static final int IP_OFFSET = 36;
 
 	private final NXTComm nxt;
 	

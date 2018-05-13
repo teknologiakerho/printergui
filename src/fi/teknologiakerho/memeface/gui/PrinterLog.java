@@ -8,6 +8,7 @@ import javax.swing.JComponent;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.text.DefaultCaret;
 
 import fi.teknologiakerho.memeface.control.HcodeConverter;
 import fi.teknologiakerho.viipal01ja.hcode.Command;
@@ -28,6 +29,7 @@ public class PrinterLog extends JComponent implements KeyListener {
 		logText.setEditable(false);
 		logText.setLineWrap(true);
 		logText.setWrapStyleWord(true);
+		((DefaultCaret)logText.getCaret()).setUpdatePolicy(DefaultCaret.ALWAYS_UPDATE);
 		
 		inputField.addKeyListener(this);
 	}

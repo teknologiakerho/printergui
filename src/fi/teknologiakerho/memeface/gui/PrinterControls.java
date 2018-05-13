@@ -9,6 +9,7 @@ import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JSlider;
 
+import fi.teknologiakerho.viipal01ja.gui.UIUtil;
 import fi.teknologiakerho.viipal01ja.hcode.Command;
 import fi.teknologiakerho.viipal01ja.hcode.MoveRelativeCommand;
 

@@ -5,6 +5,8 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 
+import fi.teknologiakerho.memeface.Config;
+import fi.teknologiakerho.memeface.Util;
 import fi.teknologiakerho.viipal01ja.hcode.Command;
 import fi.teknologiakerho.viipal01ja.hcode.HCode;
 import fi.teknologiakerho.viipal01ja.hcode.MoveCommand;
@@ -25,20 +27,16 @@ public class HcodeConverter {
 			case 'M':
 			case 'm':
 				PositionCommand pcmd = (PositionCommand) cmd;
-				dest[off+1] = (byte) (pcmd.x & 0xff);
-				dest[off+2] = (byte) ((pcmd.x >> 8) & 0xff);
-				dest[off+3] = (byte) (pcmd.y & 0xff);
-				dest[off+4] = (byte) ((pcmd.y >> 8) & 0xff);
-				return 5;
+				Util.writeLong(dest, off+1, (long) (Config.COORD_RESOLUTION * pcmd.x));
+				Util.writeLong(dest, off+5, (long) (Config.COORD_RESOLUTION * pcmd.y));
+				return 9;
 
 			case 'Z':
 				dest[off+1] = (byte) (((MoveZCommand)cmd).up ? 1 : 0);
 				return 2;
 				
 			case 'I':
-				SetIPCommand sip = (SetIPCommand) cmd;
-				dest[off+1] = (byte) (sip.ip & 0xff);
-				dest[off+2] = (byte) ((sip.ip >> 8) & 0xff);
+				Util.writeInt(dest, off+1, ((SetIPCommand)cmd).ip);
 				return 3;
 		}
 		
@@ -49,7 +47,7 @@ public class HcodeConverter {
 		switch(c) {
 			case 'M':
 			case 'm':
-				return 5;
+				return 9;
 			case 'Z':
 				return 2;
 			case 'I':
@@ -66,7 +64,7 @@ public class HcodeConverter {
 			case 'M':
 			case 'm':
 				String[] pos = s.split("\\s+");
-				int x = Integer.parseInt(pos[0]), y = Integer.parseInt(pos[1]);
+				double x = Double.parseDouble(pos[0]), y = Double.parseDouble(pos[1]);
 				return c == 'M' ? new MoveCommand(x, y) : new MoveRelativeCommand(x, y);
 				
 			case 'Z':
